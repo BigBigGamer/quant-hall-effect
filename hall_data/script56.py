@@ -36,36 +36,49 @@ mA1_I = np.array(mA1['Iobr_mA'].tolist())
 mA1_Eh = np.array(mA1['E_Hall_mV'].tolist()) - pz_U
 weights = np.zeros(mA1_I.shape)
 weights[0:5] = 1
-pp1 = np.polyfit(mA1_I,mA1_Eh,1,w = weights)
+pp1,residuals, rank, singular_values, rcond = np.polyfit(mA1_I,mA1_Eh,1,w = weights, full = True)
 pf1 = np.poly1d(pp1)
 print('pp1 = ',pp1)
 R1 = (pp1[0])/(202*10**(-4)) *d
 print('R1 = ',R1)
+r_sq = residuals/np.mean(mA1_Eh)
+print('err,% = ',r_sq*100)
+
 
 mA2_I = np.array(mA2['Iobr_mA'].tolist())
 mA2_Eh = np.array(mA2['E_Hall_mV'].tolist())- pz_U
-pp2 = np.polyfit(mA2_I,mA2_Eh,1,w = weights)
+pp2,residuals, rank, singular_values, rcond = np.polyfit(mA2_I,mA2_Eh,1,w = weights, full = True)
 pf2 = np.poly1d(pp2)
 print('pp2 = ',pp2)
 R2 = (pp2[0])/(404*10**(-4)) *d
 print('R2 = ',R2)
+r_sq = residuals/np.mean(mA2_Eh)
+print('err,% = ',r_sq*100)
+
 
 
 mA3_I = np.array(mA3['Iobr_mA'].tolist())
 mA3_Eh = np.array(mA3['E_Hall_mV'].tolist()) - pz_U
-pp3 = np.polyfit(mA3_I,mA3_Eh,1,w = weights)
+pp3,residuals, rank, singular_values, rcond = np.polyfit(mA3_I,mA3_Eh,1,w = weights, full = True)
 pf3 = np.poly1d(pp3)
 print('pp3 = ',pp3)
 R3 = (pp3[0])/(606*10**(-4)) *d
 print('R3 = ',R3)
+r_sq = residuals/np.mean(mA3_Eh)
+print('err,% = ',r_sq*100)
+
+
 
 mA7_I = np.array(mA7['Iobr_mA'].tolist())
 mA7_Eh = np.array(mA7['E_Hall_mV'].tolist()) - pz_U
-pp7 = np.polyfit(mA7_I,mA7_Eh,1,w = weights)
+pp7,residuals, rank, singular_values, rcond = np.polyfit(mA7_I,mA7_Eh,1,w = weights, full = True)
 pf7 = np.poly1d(pp7)
 print('pp7 = ',pp7)
 R7 = (pp7[0])/(808*10**(-4)) *d
 print('R7 = ',R7)
+r_sq = residuals/np.mean(mA7_Eh)
+print('err,% = ',r_sq*100)
+
 
 plt.plot(mA1_I,pf1(mA1_I),'r--',lw=1)
 plt.plot(mA2_I,pf2(mA2_I),'g--',lw=1)

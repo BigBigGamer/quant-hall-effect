@@ -35,39 +35,46 @@ d = 3.3*10**(-4) #meters
 mA1_I = np.array(mA1['I_h-field,A'].tolist())
 mA1_Eh = np.array(mA1['E_Hall,mV'].tolist())
 mA1_B = B*mA1_I
-pp1 = np.polyfit(mA1_B,mA1_Eh,1)
+pp1,residuals, rank, singular_values, rcond = np.polyfit(mA1_B,mA1_Eh,1,full = True)
 pf1 = np.poly1d(pp1)
 print('pp1 = ',pp1)
 R1 = 10*(pp1[0])/(0.001) *d
 print('R1 = ',R1)
+r_sq = residuals/np.mean(mA1_Eh)
+print('err,% = ',r_sq*100)
 
 mA2_I = np.array(mA2['I_h-field_A'].tolist())
 mA2_Eh = np.array(mA2['E_Hall_mV'].tolist())
 mA2_B = B*mA2_I
-pp2 = np.polyfit(mA2_B,mA2_Eh,1)
+pp2,residuals, rank, singular_values, rcond = np.polyfit(mA2_B,mA2_Eh,1,full = True)
 pf2 = np.poly1d(pp2)
 print('pp2 = ',pp2)
 R2 = 10*(pp2[0])/(0.002) *d
 print('R2 = ',R2)
-
+r_sq = residuals/np.mean(mA2_Eh)
+print('err,% = ',r_sq*100)
 
 mA3_I = np.array(mA3['I_h-field_A'].tolist())
 mA3_Eh = np.array(mA3['E_Hall_mV'].tolist()) 
 mA3_B = B*mA3_I
-pp3 = np.polyfit(mA3_B,mA3_Eh,1)
+pp3,residuals, rank, singular_values, rcond = np.polyfit(mA3_B,mA3_Eh,1,full = True)
 pf3 = np.poly1d(pp3)
 print('pp3 = ',pp1)
 R3 = 10*(pp3[0])/(0.003) *d
 print('R3 = ',R3)
+r_sq = residuals/np.mean(mA3_Eh)
+print('err,% = ',r_sq*100)
 
 mA7_I = np.array(mA7['I_h-field,A'].tolist())
 mA7_Eh = np.array(mA7['E_Hall,mV'].tolist()) 
 mA7_B = B*mA7_I
-pp7 = np.polyfit(mA7_B,mA7_Eh,1)
+pp7,residuals, rank, singular_values, rcond = np.polyfit(mA7_B,mA7_Eh,1,full = True)
 pf7 = np.poly1d(pp7)
 print('pp1 = ',pp1)
 R7 = 10*(pp7[0])/(0.007) *d
 print('R7 = ',R7)
+r_sq = residuals/np.mean(mA7_Eh)
+print('err,% = ',r_sq*100)
 
 plt.plot(mA1_B,pf1(mA1_B),'r--',lw=1)
 plt.plot(mA2_B,pf2(mA2_B),'g--',lw=1)
